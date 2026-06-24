@@ -95,8 +95,9 @@ function Home() {
             name={product.name}
             price={product.price}
             rating={product.rating}
-             category={product.category}
+            category={product.category}
             image={product.image}
+            stock={product.stock}
           />
         ))}
       </div>

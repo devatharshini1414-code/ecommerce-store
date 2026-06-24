@@ -6,65 +6,49 @@ import {
   WishlistContext
 } from "../context/WishlistContext";
 
+import "../styles/Wishlist.css";
+import { CartContext } from "../context/CartContext";
 function Wishlist() {
 
   const {
-    wishlist,
-    removeFromWishlist
-  } = useContext(
-    WishlistContext
-  );
+  wishlist,
+  removeFromWishlist
+} = useContext(WishlistContext);
 
+const { addToCart } = useContext(CartContext);
   return (
-    <div
-      style={{
-        padding: "20px"
-      }}
-    >
-      <h1>
-        ❤️ Wishlist
-      </h1>
+  <div className="wishlist-container">
+    <h1>❤️ Wishlist</h1>
 
-      {wishlist.length === 0 ? (
-        <p>
-          No Wishlist Items
-        </p>
-      ) : (
-        wishlist.map(
-          (item) => (
-            <div
-              key={item._id}
-              style={{
-                border:
-                  "1px solid #ddd",
-                padding: "10px",
-                margin:
-                  "10px 0"
-              }}
-            >
-              <h3>
-                {item.name}
-              </h3>
+    {wishlist.length === 0 ? (
+      <p>No items in wishlist</p>
+    ) : (
+      <div className="wishlist-grid">
+        {wishlist.map((item) => (
+          <div className="wishlist-card" key={item._id}>
+            <img src={item.image} alt={item.name} />
 
-              <p>
-                ₹{item.price}
-              </p>
+            <h3>{item.name}</h3>
+            <p>₹{item.price}</p>
 
-              <button
-                onClick={() =>
-                  removeFromWishlist(
-                    item._id
-                  )
-                }
-              >
-                Remove
-              </button>
-            </div>
-          )
-        )
-      )}
-    </div>
-  );
+           <button
+  className="wishlist-cart-btn"
+  onClick={() => addToCart(item)}
+>
+  Add to Cart
+</button>
+          <button
+  className="wishlist-remove-btn"
+  onClick={() => removeFromWishlist(item._id)}
+>
+  Remove
+</button>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+);
 }
 
 export default Wishlist;

@@ -28,18 +28,31 @@ function SalesChart({ stats }) {
     ],
 
     datasets: [
-      {
-        label: "Analytics",
-        data: [
-          stats.totalProducts,
-          stats.totalUsers,
-          stats.totalOrders,
-        ],
-      },
+  {
+    label: "Analytics",
+    data: [
+      stats.totalProducts,
+      stats.totalUsers,
+      stats.totalOrders,
     ],
+     backgroundColor: [
+      "#3b82f6",
+      "#10b981",
+      "#f59e0b"
+    ],
+    borderRadius: 8
+  },
+],
   };
-
-  return <Bar data={data} />;
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+  },
+};
+ return <Bar data={data} options={options} />;
 }
 
 export default SalesChart;

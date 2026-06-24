@@ -1,26 +1,60 @@
-import { createContext, useState } from "react";
+import {
+  createContext,
+  useState,
+  useEffect
+} from "react";
 
-export const CartContext = createContext();
+import { getCart } from "../api/cart";
 
-export function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
+export const CartContext =
+  createContext();
 
-  const addToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
+export function CartProvider({
+  children
+}) {
+  const [cart, setCart] =
+    useState([]);
+
+  const fetchCart = async () => {
+    const token =
+      localStorage.getItem("token");
+
+    if (!token) {
+      setCart([]);
+      return;
+    }
+
+    try {
+      const { data } =
+        await getCart();
+
+      setCart(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const removeFromCart = (id) => {
-    setCart((prevCart) =>
-      prevCart.filter((item) => item._id !== id)
-    );
+useEffect(() => {
+  const loadCart = async () => {
+    await fetchCart();
   };
+
+  loadCart();
+}, []);
+
+  const cartCount = cart.reduce(
+    (total, item) =>
+      total + item.quantity,
+    0
+  );
 
   return (
     <CartContext.Provider
       value={{
         cart,
-        addToCart,
-        removeFromCart,
+        setCart,
+        fetchCart,
+        cartCount
       }}
     >
       {children}

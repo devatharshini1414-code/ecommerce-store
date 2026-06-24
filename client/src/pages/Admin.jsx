@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import { Link } from "react-router-dom";
+import "../styles/Admin.css";
 import {
   createProduct,
   getProducts,
@@ -145,8 +146,10 @@ const handleEdit = (product) => {
   });
 };
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Admin Dashboard</h1>
+    <div className="admin-page">
+      <h1 className="admin-title">
+  Admin Dashboard
+</h1>
 <Link to="/analytics">
   <button
     style={{
@@ -156,8 +159,10 @@ const handleEdit = (product) => {
     View Analytics Dashboard
   </button>
 </Link>
-      <form onSubmit={handleAddProduct}>
-        <input
+<form
+  className="admin-form"
+  onSubmit={handleAddProduct}
+>        <input
           name="name"
           placeholder="Product Name"
           value={newProduct.name}
@@ -230,7 +235,8 @@ const handleEdit = (product) => {
 
       <h2>Products</h2>
 
-      <table border="1" cellPadding="10">
+<div className="table-wrapper">
+    <table border="1" cellPadding="10">
         <thead>
           <tr>
             <th>Image</th>
@@ -259,7 +265,17 @@ const handleEdit = (product) => {
 
 <td>₹{product.price}</td>
 
-<td>{product.stock}</td>
+<td
+  style={{
+    color:
+      product.stock < 5
+        ? "red"
+        : "green",
+    fontWeight: "bold",
+  }}
+>
+  {product.stock}
+</td>
 
 <td>
 
@@ -284,6 +300,7 @@ const handleEdit = (product) => {
           ))}
         </tbody>
       </table>
+          </div>
     </div>
   );
 }

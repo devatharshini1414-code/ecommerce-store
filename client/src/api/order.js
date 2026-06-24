@@ -18,3 +18,16 @@ export const getOrders = () => {
     }
   );
 };
+export const placeOrder = () => {
+  const token = localStorage.getItem("token");
+
+  return axios.post(
+    API_URL,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+};

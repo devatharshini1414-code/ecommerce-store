@@ -10,6 +10,7 @@ import {
 import { ClipLoader }
 from "react-spinners";
 import "../styles/Analytics.css";
+import SalesChart from "../components/SalesChart";
 function Analytics() {
 
   const [data,
@@ -86,8 +87,17 @@ function Analytics() {
     <h2>💰 Revenue</h2>
     <h1>₹{data.totalRevenue}</h1>
   </div>
-
+  <div className="analytics-card">
+  <h2>Average Revenue / Order</h2>
+  <h1>
+    ₹
+    {Math.round(
+      data.totalRevenue /
+      (data.totalOrders || 1)
+    )}
+  </h1>
 </div>
+<SalesChart stats={data} /></div>
     </div>
   );
 }

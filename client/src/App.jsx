@@ -14,7 +14,7 @@ import Wishlist from "./pages/Wishlist";
 import Analytics from "./pages/Analytics";
 
 import ProtectedRoute from "./components/ProtectedRoute";
-import Footer from "./components/Footer";
+
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -99,7 +99,7 @@ function App() {
         />
       </Routes>
 
-      <Footer />
+      
 
       <ToastContainer
         position="top-right"

@@ -18,7 +18,8 @@ const {
 
 const {
   createProduct,
-  deleteProduct
+  deleteProduct,
+  updateProduct
 } = require(
   "../controllers/productController"
 );
@@ -52,7 +53,7 @@ router.put(
   "/products/:id",
   protect,
   adminMiddleware,
-  updateProduct
+  updateProduct,
 );
 module.exports =
   router;

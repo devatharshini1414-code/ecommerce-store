@@ -3,12 +3,14 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import { CartContext } from "../context/CartContext";
+import "./Navbar.css";
 import {
   WishlistContext
 } from "../context/WishlistContext";
 function Navbar({ search = "", setSearch = () => {} }) {
-  const { cart } = useContext(CartContext);
-
+const {
+  cartCount
+} = useContext(CartContext);
   const token = localStorage.getItem("token");
 
   const userInfo = JSON.parse(
@@ -50,30 +52,22 @@ const {
         <Link to="/products">
           Products
         </Link>
+{token && (
+  <>
+    <Link to="/orders">Orders</Link>
 
-        {token && (
-<>
-  <Link to="/orders">
-    Orders
-  </Link>
-
-  {userInfo.role === "admin" && (
-    <>
-      <Link to="/admin">
-        Admin
-      </Link>
-   
-    <Link to="/analytics">
-  📊 Analytics
-</Link>
- </>
-  )}
-</>
+    {userInfo.role === "admin" && (
+      <>
+        <Link to="/admin">Admin</Link>
+        <Link to="/analytics">Analytics</Link>
+      </>
+    )}
+  </>
 )}
         <Link to="/cart">
           <FaShoppingCart />
           {" "}
-          ({cart.length})
+         ({cartCount})
         </Link>
 <Link to="/wishlist">
   ❤️ ({wishlist.length})
