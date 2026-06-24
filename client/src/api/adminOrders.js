@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const API_URL =
-  "http://localhost:5000/api/orders";
-
+  `${import.meta.env.VITE_API_URL}/api/cart`;
 export const getAllOrders = () => {
   return axios.get(
     `${API_URL}/admin/all`
